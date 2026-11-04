@@ -1,0 +1,463 @@
+/******* Bootstrap Theming ********/
+
+$primary: #17a2b8;
+$secondary: #00394f;
+
+$theme-colors: (
+    "primary": $primary,
+    "secondary": $secondary,
+);
+
+$font-family-sans-serif: 'Nunito', sans-serif;
+
+$headings-font-family: 'Handlee', cursive;
+
+$body-color: #666666;
+
+$headings-color: $secondary;
+
+$headings-font-weight: bold;
+
+$enable-responsive-font-sizes: true;
+
+$border-radius: 5px;
+
+$btn-border-radius: 30px;
+
+@import "bootstrap/scss/bootstrap";
+
+
+/********** Custom CSS ************/
+
+.section-title {
+    position: relative;
+    display: inline-block;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: $primary;
+}
+
+.section-title span {
+    position: relative;
+    background: #ffffff;
+    z-index: 1;
+}
+
+.section-title::before {
+    position: absolute;
+    content: "";
+    top: 10px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: $primary;
+}
+
+[class^=flaticon-]:before,
+[class*=" flaticon-"]:before,
+[class^=flaticon-]:after,
+[class*=" flaticon-"]:after {
+    font-size: inherit;
+    margin-left: 0;
+}
+
+.back-to-top {
+    position: fixed;
+    display: none;
+    right: 30px;
+    bottom: 30px;
+    z-index: 11;
+    -webkit-animation: action 1s infinite alternate;
+    animation: action 1s infinite alternate;
+}
+
+@-webkit-keyframes action {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes action {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-15px);
+    }
+}
+
+.navbar-light .navbar-nav .nav-link {
+    padding: 30px 15px;
+    color: $secondary;
+    outline: none;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active {
+    color: $primary;
+}
+
+@media (max-width: 991.98px) {
+    .navbar-light .navbar-nav .nav-link  {
+        padding: 10px 15px;
+    }
+}
+
+.post-carousel .owl-nav {
+    position: absolute;
+    width: 100%;
+    height: 35px;
+    top: 50%;
+    left: 0;
+    margin-top: -20px;
+    padding: 0 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1;
+}
+
+.post-carousel .owl-nav .owl-prev,
+.post-carousel .owl-nav .owl-next {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $secondary;
+    background: $primary;
+    border-radius: 30px;
+    font-size: 18px;
+    opacity: .1;
+    transition: .3s;
+}
+
+.post-carousel:hover .owl-nav .owl-prev,
+.post-carousel:hover .owl-nav .owl-next {
+    opacity: 1;
+}
+
+.portfolio-item .portfolio-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    bottom: 30px;
+    left: 30px;
+    opacity: 0;
+    transition: .5s;
+}
+
+.portfolio-item:hover .portfolio-btn {
+    opacity: 1;
+}
+
+.team .team-social {
+    top: 0;
+    background: rgba(23, 162, 184, .8);
+    opacity: 0;
+    z-index: 1;
+    transition: .5s;
+}
+
+.team:hover .team-social {
+    opacity: 1;
+}
+
+.testimonial-carousel .owl-dots {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.testimonial-carousel .owl-dot {
+    display: inline-block;
+    margin: 0 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 10px;
+    background: #dddddd;
+}
+
+.testimonial-carousel .owl-dot.active {
+    background: $primary;
+}
+
+.contact-form .help-block ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+
+
+
+
+
+
+
+// Grid system
+//
+// Generate semantic grid columns with these mixins.
+
+@mixin make-row($gutter: $grid-gutter-width) {
+    --#{$prefix}gutter-x: #{$gutter};
+    --#{$prefix}gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    // TODO: Revisit calc order after https://github.com/react-bootstrap/react-bootstrap/issues/6039 is fixed
+    margin-top: calc(-1 * var(--#{$prefix}gutter-y)); // stylelint-disable-line function-disallowed-list
+    margin-right: calc(-.5 * var(--#{$prefix}gutter-x)); // stylelint-disable-line function-disallowed-list
+    margin-left: calc(-.5 * var(--#{$prefix}gutter-x)); // stylelint-disable-line function-disallowed-list
+  }
+  
+  @mixin make-col-ready() {
+    // Add box sizing if only the grid is loaded
+    box-sizing: if(variable-exists(include-column-box-sizing) and $include-column-box-sizing, border-box, null);
+    // Prevent columns from becoming too narrow when at smaller grid tiers by
+    // always setting `width: 100%;`. This works because we set the width
+    // later on to override this initial width.
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%; // Prevent `.col-auto`, `.col` (& responsive variants) from breaking out the grid
+    padding-right: calc(var(--#{$prefix}gutter-x) * .5); // stylelint-disable-line function-disallowed-list
+    padding-left: calc(var(--#{$prefix}gutter-x) * .5); // stylelint-disable-line function-disallowed-list
+    margin-top: var(--#{$prefix}gutter-y);
+  }
+  
+  @mixin make-col($size: false, $columns: $grid-columns) {
+    @if $size {
+      flex: 0 0 auto;
+      width: percentage(divide($size, $columns));
+  
+    } @else {
+      flex: 1 1 0;
+      max-width: 100%;
+    }
+  }
+  
+  @mixin make-col-auto() {
+    flex: 0 0 auto;
+    width: auto;
+  }
+  
+  @mixin make-col-offset($size, $columns: $grid-columns) {
+    $num: divide($size, $columns);
+    margin-left: if($num == 0, 0, percentage($num));
+  }
+  
+  // Row columns
+  //
+  // Specify on a parent element(e.g., .row) to force immediate children into NN
+  // number of columns. Supports wrapping to new lines, but does not do a Masonry
+  // style grid.
+  @mixin row-cols($count) {
+    > * {
+      flex: 0 0 auto;
+      width: percentage(divide(1, $count));
+    }
+  }
+  
+  // Framework grid generation
+  //
+  // Used only by Bootstrap to generate the correct number of grid classes given
+  // any value of `$grid-columns`.
+  
+  @mixin make-grid-columns($columns: $grid-columns, $gutter: $grid-gutter-width, $breakpoints: $grid-breakpoints) {
+    @each $breakpoint in map-keys($breakpoints) {
+      $infix: breakpoint-infix($breakpoint, $breakpoints);
+  
+      @include media-breakpoint-up($breakpoint, $breakpoints) {
+        // Provide basic `.col-{bp}` classes for equal-width flexbox columns
+        .col#{$infix} {
+          flex: 1 0 0%; // Flexbugs #4: https://github.com/philipwalton/flexbugs#flexbug-4
+        }
+  
+        .row-cols#{$infix}-auto > * {
+          @include make-col-auto();
+        }
+  
+        @if $grid-row-columns > 0 {
+          @for $i from 1 through $grid-row-columns {
+            .row-cols#{$infix}-#{$i} {
+              @include row-cols($i);
+            }
+          }
+        }
+  
+        .col#{$infix}-auto {
+          @include make-col-auto();
+        }
+  
+        @if $columns > 0 {
+          @for $i from 1 through $columns {
+            .col#{$infix}-#{$i} {
+              @include make-col($i, $columns);
+            }
+          }
+  
+          // `$columns - 1` because offsetting by the width of an entire row isn't possible
+          @for $i from 0 through ($columns - 1) {
+            @if not ($infix == "" and $i == 0) { // Avoid emitting useless .offset-0
+              .offset#{$infix}-#{$i} {
+                @include make-col-offset($i, $columns);
+              }
+            }
+          }
+        }
+  
+        // Gutters
+        //
+        // Make use of `.g-*`, `.gx-*` or `.gy-*` utilities to change spacing between the columns.
+        @each $key, $value in $gutters {
+          .g#{$infix}-#{$key},
+          .gx#{$infix}-#{$key} {
+            --#{$prefix}gutter-x: #{$value};
+          }
+  
+          .g#{$infix}-#{$key},
+          .gy#{$infix}-#{$key} {
+            --#{$prefix}gutter-y: #{$value};
+          }
+        }
+      }
+    }
+  }
+  
+  @mixin make-cssgrid($columns: $grid-columns, $breakpoints: $grid-breakpoints) {
+    @each $breakpoint in map-keys($breakpoints) {
+      $infix: breakpoint-infix($breakpoint, $breakpoints);
+  
+      @include media-breakpoint-up($breakpoint, $breakpoints) {
+        @if $columns > 0 {
+          @for $i from 1 through $columns {
+            .g-col#{$infix}-#{$i} {
+              grid-column: auto / span $i;
+            }
+          }
+  
+          // Start with `1` because `0` is an invalid value.
+          // Ends with `$columns - 1` because offsetting by the width of an entire row isn't possible.
+          @for $i from 1 through ($columns - 1) {
+            .g-start#{$infix}-#{$i} {
+              grid-column-start: $i;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+
+
+
+  // Utility generator
+// Used to generate utilities & print utilities
+@mixin generate-utility($utility, $infix: "", $is-rfs-media-query: false) {
+    $values: map-get($utility, values);
+  
+    // If the values are a list or string, convert it into a map
+    @if type-of($values) == "string" or type-of(nth($values, 1)) != "list" {
+      $values: zip($values, $values);
+    }
+  
+    @each $key, $value in $values {
+      $properties: map-get($utility, property);
+  
+      // Multiple properties are possible, for example with vertical or horizontal margins or paddings
+      @if type-of($properties) == "string" {
+        $properties: append((), $properties);
+      }
+  
+      // Use custom class if present
+      $property-class: if(map-has-key($utility, class), map-get($utility, class), nth($properties, 1));
+      $property-class: if($property-class == null, "", $property-class);
+  
+      // Use custom CSS variable name if present, otherwise default to `class`
+      $css-variable-name: if(map-has-key($utility, css-variable-name), map-get($utility, css-variable-name), map-get($utility, class));
+  
+      // State params to generate pseudo-classes
+      $state: if(map-has-key($utility, state), map-get($utility, state), ());
+  
+      $infix: if($property-class == "" and str-slice($infix, 1, 1) == "-", str-slice($infix, 2), $infix);
+  
+      // Don't prefix if value key is null (e.g. with shadow class)
+      $property-class-modifier: if($key, if($property-class == "" and $infix == "", "", "-") + $key, "");
+  
+      @if map-get($utility, rfs) {
+        // Inside the media query
+        @if $is-rfs-media-query {
+          $val: rfs-value($value);
+  
+          // Do not render anything if fluid and non fluid values are the same
+          $value: if($val == rfs-fluid-value($value), null, $val);
+        }
+        @else {
+          $value: rfs-fluid-value($value);
+        }
+      }
+  
+      $is-css-var: map-get($utility, css-var);
+      $is-local-vars: map-get($utility, local-vars);
+      $is-rtl: map-get($utility, rtl);
+  
+      @if $value != null {
+        @if $is-rtl == false {
+          /* rtl:begin:remove */
+        }
+  
+        @if $is-css-var {
+          .#{$property-class + $infix + $property-class-modifier} {
+            --#{$prefix}#{$css-variable-name}: #{$value};
+          }
+  
+          @each $pseudo in $state {
+            .#{$property-class + $infix + $property-class-modifier}-#{$pseudo}:#{$pseudo} {
+              --#{$prefix}#{$css-variable-name}: #{$value};
+            }
+          }
+        } @else {
+          .#{$property-class + $infix + $property-class-modifier} {
+            @each $property in $properties {
+              @if $is-local-vars {
+                @each $local-var, $variable in $is-local-vars {
+                  --#{$prefix}#{$local-var}: #{$variable};
+                }
+              }
+              #{$property}: $value if($enable-important-utilities, !important, null);
+            }
+          }
+  
+          @each $pseudo in $state {
+            .#{$property-class + $infix + $property-class-modifier}-#{$pseudo}:#{$pseudo} {
+              @each $property in $properties {
+                @if $is-local-vars {
+                  @each $local-var, $variable in $is-local-vars {
+                    --#{$prefix}#{$local-var}: #{$variable};
+                  }
+                }
+                #{$property}: $value if($enable-important-utilities, !important, null);
+              }
+            }
+          }
+        }
+  
+        @if $is-rtl == false {
+          /* rtl:end:remove */
+        }
+      }
+    }
+  }
+
+  
+
+  @media (min-width: 992px) {
+    .col-lg-3 {
+        flex: 0 0 auto;
+        width: 25%;
+    }
+}
